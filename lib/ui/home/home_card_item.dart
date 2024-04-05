@@ -32,12 +32,23 @@ class HomeCardItem extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: GridTile(
-            footer: CardFooter(product: product),
-            child: Image.asset(
-              product.imageUrl,
-              fit: BoxFit.contain,
-            ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image
+              Expanded(
+                flex: 7,
+                child: Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+              // CardRight
+              Expanded(
+                flex: 6,
+                child: CardRight(product: product),
+              ),
+            ],
           ),
         ),
       ),
@@ -45,8 +56,8 @@ class HomeCardItem extends StatelessWidget {
   }
 }
 
-class CardFooter extends StatelessWidget {
-  const CardFooter({
+class CardRight extends StatelessWidget {
+  const CardRight({
     super.key,
     required this.product,
   });
@@ -55,44 +66,55 @@ class CardFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTileBar(
-      backgroundColor: Colors.transparent,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 5.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              product.title,
-              style: const TextStyle(
-                color: Color(0xFF022840),
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(padding: EdgeInsets.only(top: 12)),
+          Text(
+            product.title,
+            style: const TextStyle(
+              color: Color(0xFF022840),
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
             ),
-            Text(
-              '\$${product.price}',
-              style: const TextStyle(
-                color: Color(0xFF022840),
-                fontSize: 16,
-              ),
-            ),
-          ],
-        ),
-      ),
-      trailing: Padding(
-        padding: const EdgeInsets.only(top: 5.0),
-        child: IconButton(
-          icon: Icon(
-            Icons.shopping_cart,
-            size: 30,
-            color: Theme.of(context).primaryColor,
           ),
-          onPressed: () {
-            print('Add item to cart');
-          },
-        ),
+          Text(
+            '\$${product.price}',
+            style: const TextStyle(
+              color: Color(0xFF022840),
+              fontSize: 20,
+            ),
+          ),
+          const Spacer(),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor.withOpacity(0.5),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 10,
+                    blurRadius: 10,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  print('Add item to cart');
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

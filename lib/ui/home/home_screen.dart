@@ -1,5 +1,4 @@
 import 'package:ct484_project/ui/cart/cart_screen.dart';
-import 'package:ct484_project/ui/category/category_screen.dart';
 import 'package:ct484_project/ui/home/bottom_navigation_bar.dart';
 import 'package:ct484_project/ui/order/orders_screen.dart';
 import 'package:ct484_project/ui/user/user_product_screen.dart';
@@ -20,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _showOnlyFavorites = false;
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     var customBottomNavigationBar = CustomBottomNavigationBar(
@@ -32,18 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
           case 0:
             // Điều hướng đến trang cửa hàng
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CategoryScreen()),
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
             );
             break;
           case 1:
             // Điều hướng đến trang giỏ hàng
             Navigator.of(context).push(
-              MaterialPageRoute(
-                  builder: (context) => const UserProductsScreen()),
+              MaterialPageRoute(builder: (context) => const CartScreen()),
             );
             break;
           case 2:
-            // Điều hướng đến trang yêu thích
+            // Điều hướng đến trang quản lý
             Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => const CartScreen()),
             );
@@ -66,17 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
               fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
-          HomeFilterMenu(
-            onFilterSelected: (filter) {
-              setState(() {
-                if (filter == FilterOptions.favorites) {
-                  _showOnlyFavorites = true;
-                } else {
-                  _showOnlyFavorites = false;
-                }
-              });
-            },
-          ),
           SearchButton(
             onPressed: () {
               showSearch(
@@ -99,13 +87,18 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const HomeBanner(),
-            subTitle("All Product"),
+            subTitleWithFilterMenu(
+              "All Product",
+              HomeFilterMenu(
+                onFilterSelected: (filter) {
+                  setState(() {
+                    _showOnlyFavorites = filter == FilterOptions.favorites;
+                  });
+                },
+              ),
+            ),
             Expanded(
               child: HomeCard(_showOnlyFavorites),
-            ),
-            subTitle("Best Favorite"),
-            Expanded(
-              child: HomeCard(!_showOnlyFavorites),
             ),
           ],
         ),
@@ -125,7 +118,9 @@ class HomeFilterMenu extends StatelessWidget {
     return PopupMenuButton(
       onSelected: onFilterSelected,
       icon: const Icon(
-        Icons.more_vert,
+        Icons.filter_alt,
+        size: 30,
+        color: Colors.teal,
       ),
       itemBuilder: (ctx) => [
         const PopupMenuItem(
@@ -149,8 +144,8 @@ class SearchButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       icon: const Icon(Icons.search),
-      iconSize: 30,
-      color: Theme.of(context).primaryColorDark,
+      iconSize: 35,
+      color: const Color(0xff022840),
     );
   }
 }
@@ -167,20 +162,25 @@ class ShoppingCartButton extends StatelessWidget {
       icon: const Icon(
         Icons.shopping_cart,
       ),
-      iconSize: 30,
-      color: Theme.of(context).primaryColorDark,
+      iconSize: 35,
+      color: const Color(0xff022840),
     );
   }
 }
 
-Widget subTitle(String text) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Text(
-        text,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ],
+Widget subTitleWithFilterMenu(String text, Widget filterMenu) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: const TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
+        ),
+        filterMenu,
+      ],
+    ),
   );
 }

@@ -78,26 +78,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // SizedBox(
-            //   height: 300,
-            //   width: double.infinity,
-            //   child: Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            //     child: Image.asset(
-            //       widget.product.imageUrl,
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            // ),
             Hero(
-              tag: widget.product.id ??
-                  '', // Nếu id là null, bạn có thể sử dụng một giá trị mặc định
+              tag: widget.product.id ?? '',
               child: Image.asset(
                 widget.product.imageUrl,
-                fit: BoxFit.contain, // Đảm bảo hình ảnh không bị cắt bớt
+                fit: BoxFit.cover,
               ),
             ),
-
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -119,14 +106,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 GestureDetector(
                   onTap: _decreaseQuantity,
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    // padding: const EdgeInsets.all(5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.remove,
-                      size: 30,
-                      color: Colors.black,
+                      size: 35,
+                      color: Color(0xff022840),
                     ),
                   ),
                 ),
@@ -147,21 +134,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 GestureDetector(
                   onTap: _increaseQuantity,
                   child: Container(
-                    padding: const EdgeInsets.all(5),
+                    // padding: const EdgeInsets.all(5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
                       Icons.add,
-                      size: 30,
-                      color: Colors.black,
+                      size: 35,
+                      color: Color(0xff022840),
                     ),
                   ),
                 ),
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -190,7 +177,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   );
               },
             ),
-            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -210,9 +196,9 @@ class CartProductButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon: const Icon(Icons.shopping_cart, color: Colors.red),
-      color: Theme.of(context).primaryColor,
-      iconSize: 40,
+      icon: const Icon(Icons.shopping_cart),
+      color: const Color(0xff022840),
+      iconSize: 35,
     );
   }
 }
@@ -229,7 +215,6 @@ class CartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
@@ -239,16 +224,16 @@ class CartButton extends StatelessWidget {
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.teal,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
             ),
-            child: Text(
+            child: const Text(
               'Add to Cart',
               style: TextStyle(
                 fontSize: 25,
-                color: Theme.of(context).primaryColorLight,
+                color: Color(0xff022840),
               ),
             ),
           ),
@@ -277,10 +262,10 @@ class _FavoriteProductButtonState extends State<FavoriteProductButton> {
     return Row(
       children: [
         IconButton(
-          iconSize: 40,
+          iconSize: 35,
           icon: Icon(
             _isFavorited ? Icons.favorite : Icons.favorite_border,
-            color: _isFavorited ? Colors.red : null,
+            color: _isFavorited ? Colors.red : const Color(0xff022840),
           ),
           onPressed: () {
             setState(

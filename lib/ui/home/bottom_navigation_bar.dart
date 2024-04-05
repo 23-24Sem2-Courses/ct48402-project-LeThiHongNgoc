@@ -22,12 +22,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Store',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Cart',
+          icon: Icon(Icons.manage_search),
+          label: 'Manager',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorite',
+          icon: Icon(Icons.badge),
+          label: 'Order',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),

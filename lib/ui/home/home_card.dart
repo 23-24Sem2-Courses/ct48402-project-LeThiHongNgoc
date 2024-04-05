@@ -16,8 +16,8 @@ class HomeCard extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (ctx, i) => HomeCardItem(products[i]),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 3,
+        crossAxisCount: 1,
+        childAspectRatio: 9 / 3,
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
       ),

@@ -81,7 +81,7 @@ class AddUserProductButton extends StatelessWidget {
       onPressed: onPressed,
       icon: const Icon(Icons.add),
       iconSize: 40,
-      color: Colors.teal,
+      color:  const Color(0xff022840),
     );
   }
 }

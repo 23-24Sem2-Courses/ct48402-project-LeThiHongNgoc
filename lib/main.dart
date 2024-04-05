@@ -1,6 +1,8 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'ui/home/home_screen.dart';
+import './ui/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,13 +29,48 @@ class MyApp extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      title: 'Shoes Store',
-      debugShowCheckedModeBanner: false,
-      theme: themData,
-      // Hiệu chỉnh trang home
-      home: const SafeArea(
-        child: HomeScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => ProductsManager(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CartManager(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Shoes Store',
+        debugShowCheckedModeBanner: false,
+        theme: themData,
+        // Hiệu chỉnh trang home
+        home: const HomeScreen(),
+        routes: {
+          CartScreen.routeName: (ctx) => const SafeArea(
+                child: CartScreen(),
+              ),
+          OrdersScreen.routeName: (ctx) => const SafeArea(
+                child: OrdersScreen(),
+              ),
+          UserProductsScreen.routeName: (ctx) => const SafeArea(
+                child: UserProductsScreen(),
+              ),
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == ProductDetailScreen.routeName) {
+            final productId = settings.arguments as String;
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (ctx) {
+                return SafeArea(
+                  child: ProductDetailScreen(
+                    ProductsManager().findById(productId)!,
+                  ),
+                );
+              },
+            );
+          }
+          return null;
+        },
       ),
     );
   }

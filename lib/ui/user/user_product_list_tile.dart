@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../models/product.dart';
 
 class UserProductListTile extends StatelessWidget {
@@ -16,45 +15,50 @@ class UserProductListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      elevation: 3,
-      child: ListTile(
-        contentPadding:
-            const EdgeInsets.all(16.0), // Điều chỉnh padding cho ListTile
-        leading: SizedBox(
-          width: 100,
-          height: 200,
-          child: CircleAvatar(
-            backgroundColor: Colors.grey, // Màu nền của CircleAvatar
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0), // Bo góc của hình vuông
-              child: Image.asset(
-                product.imageUrl,
-                fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3),
+      child: Card(
+        color: Colors.grey[50],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        elevation: 5,
+        child: ListTile(
+          contentPadding: const EdgeInsets.all(20.0),
+          leading: SizedBox(
+            width: 100,
+            height: 300,
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
-        ),
-        title: Text(
-          product.title,
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal),
-        ),
-        subtitle: Text(
-          '\$${product.price}',
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.teal,
+          title: Text(
+            product.title,
+            style: const TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.teal),
           ),
-        ),
-        trailing: IconButton(
-          icon: const Icon(Icons.edit),
-          onPressed: () {
-            print('Edit product: ${product.title}');
-          },
+          subtitle: Text(
+            '\$${product.price}',
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.teal,
+            ),
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.edit),
+            color: Colors.teal,
+            iconSize: 30,
+            onPressed: () {
+              print('Edit product: ${product.title}');
+            },
+          ),
         ),
       ),
     );
@@ -96,39 +100,35 @@ class UserProductListTile extends StatelessWidget {
   // }
 }
 
-class DeleteUserProductButton extends StatelessWidget {
-  const DeleteUserProductButton({
-    super.key,
-    this.onPressed,
-  });
+// class DeleteUserProductButton extends StatelessWidget {
+//   const DeleteUserProductButton({
+//     super.key,
+//     this.onPressed,
+//   });
 
-  final void Function()? onPressed;
+//   final void Function()? onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: const Icon(Icons.delete),
-      color: Theme.of(context).colorScheme.error,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return IconButton(
+//       onPressed: onPressed,
+//       icon: const Icon(Icons.delete),
+//       color: Theme.of(context).colorScheme.error,
+//     );
+//   }
+// }
 
-class EditUserProductButton extends StatelessWidget {
-  const EditUserProductButton({
-    super.key,
-    this.onPressed,
-  });
+// class EditUserProductButton extends StatelessWidget {
+//   const EditUserProductButton({
+//     super.key,
+//     this.onPressed,
+//   });
 
-  final void Function()? onPressed;
+//   final void Function()? onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: const Icon(Icons.edit),
-      color: Colors.teal
-    );
-  }
-}
-
+//   @override
+//   Widget build(BuildContext context) {
+//     return IconButton(
+//         onPressed: onPressed, icon: const Icon(Icons.edit), color: Colors.teal);
+//   }
+// }

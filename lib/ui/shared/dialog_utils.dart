@@ -4,16 +4,29 @@ Future<bool?> showConfirmDialog(BuildContext context, String message) {
   return showDialog(
     context: context,
     builder: (ctx) => AlertDialog(
-      icon: const Icon(Icons.warning, color: Colors.red),
-      title: const Text('Are you sure?'),
-      content: Text(message),
+      icon: const Icon(
+        Icons.warning,
+        color: Colors.red,
+        size: 30,
+      ),
+      title: const Text(
+        'Bạn chắc chứ?',
+        style: TextStyle(fontSize: 24),
+      ),
+      content: Text(
+        message,
+        style: const TextStyle(
+          color: Colors.red,
+          fontSize: 19,
+        ),
+      ),
       actions: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: ActionButton(
-                actionText: 'No',
+                actionText: 'Hủy',
                 onPressed: () {
                   Navigator.of(ctx).pop(false);
                 },
@@ -21,7 +34,7 @@ Future<bool?> showConfirmDialog(BuildContext context, String message) {
             ),
             Expanded(
               child: ActionButton(
-                actionText: 'Yes',
+                actionText: 'Đồng ý',
                 onPressed: () {
                   Navigator.of(ctx).pop(true);
                 },
@@ -51,7 +64,7 @@ class ActionButton extends StatelessWidget {
       child: Text(
         actionText ?? 'Okay',
         style: Theme.of(context).textTheme.titleMedium!.copyWith(
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.teal,
               fontSize: 24,
             ),
       ),

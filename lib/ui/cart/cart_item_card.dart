@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../models/cart_item.dart';
 import '../shared/dialog_utils.dart';
 
-class CartItemCard extends StatelessWidget {
+class CustomCartItemCard extends StatelessWidget {
   final String productId;
   final CartItem cartItem;
 
-  const CartItemCard({
+  const CustomCartItemCard({
     required this.productId,
     required this.cartItem,
     super.key,
@@ -14,70 +14,73 @@ class CartItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(cartItem.id),
-      background: Container(
-        color: Theme.of(context).colorScheme.error,
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.only(right: 20),
-        margin: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 4,
-        ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-          size: 40,
-        ),
-      ),
-      direction: DismissDirection.endToStart,
-      confirmDismiss: (direction) {
-        return showConfirmDialog(
-          context,
-          'Do you want to remove the item from the cart?',
-        );
-      },
-      onDismissed: (direction) {
-        print('Cart item dismissed');
-      },
-      //Cap nhat ItemInfoCard
-      child: ItemInfoCard(cartItem),
-    );
-  }
-}
-
-class ItemInfoCard extends StatelessWidget {
-  const ItemInfoCard(
-    this.cartItem, {
-    super.key,
-  });
-
-  final CartItem cartItem;
-  @override
-  Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 4,
-      ),
+      color: Colors.white,
+      margin: const EdgeInsets.all(15),
+      elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ListTile(
-          leading: ClipRRect(
-            borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              cartItem.imageUrl,
-              fit: BoxFit.cover,
-              width: 80,
-              height: 80,
+        padding: const EdgeInsets.all(0),
+        child: Row(
+          children: [
+            Container(
+              width: 150,
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+              ),
+              child: Image.network(
+                cartItem.imageUrl,
+                width: 150,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          title: Text(cartItem.title),
-          subtitle: Text('Total: \$${(cartItem.price * cartItem.quantity)}'),
-          trailing: Text(
-            '${cartItem.quantity} x \$${cartItem.price}',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    cartItem.title,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Giá: \$${cartItem.price.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey[800],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'SL: ${cartItem.quantity}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.delete,
+                size: 35,
+                color: Colors.red,
+              ),
+              onPressed: () async {
+                await showConfirmDialog(
+                  context,
+                  'Bạn muốn xóa sản phẩm này khỏi giỏ hàng?',
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

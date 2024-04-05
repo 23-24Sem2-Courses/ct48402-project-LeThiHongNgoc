@@ -1,9 +1,9 @@
-import 'package:ct484_project/ui/cart/cart_screen.dart';
-import 'package:ct484_project/ui/home/bottom_navigation_bar.dart';
-import 'package:ct484_project/ui/order/orders_screen.dart';
-import 'package:ct484_project/ui/user/user_product_screen.dart';
+import '/ui/user/profile_screen.dart';
+import '/ui/home/home_grid.dart';
+import '/ui/home/top_right_badge.dart';
+import '/ui/screens.dart';
+import '/ui/shared/bottom_navigation_bar.dart';
 import '../search/custom_search.dart';
-import 'home_card.dart';
 import 'package:flutter/material.dart';
 import 'home_banner.dart';
 
@@ -38,23 +38,25 @@ class _HomeScreenState extends State<HomeScreen> {
           case 1:
             // Điều hướng đến trang giỏ hàng
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CartScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const UserProductsScreen()),
             );
             break;
           case 2:
             // Điều hướng đến trang quản lý
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const CartScreen()),
+              MaterialPageRoute(builder: (context) => const OrdersScreen()),
             );
             break;
           case 3:
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const OrdersScreen()),
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
             );
             break;
         }
       },
     );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -75,14 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           ShoppingCartButton(
             onPressed: () {
-              print('Go to cart screen');
+              // Navigate to CartScreen
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
             },
           ),
         ],
       ),
       body: Container(
-        constraints:
-            const BoxConstraints.expand(), // Mở rộng hết chiều cao của màn hình
+        constraints: const BoxConstraints.expand(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -98,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Expanded(
-              child: HomeCard(_showOnlyFavorites),
+              child: HomeGird(_showOnlyFavorites),
             ),
           ],
         ),
@@ -157,13 +161,16 @@ class ShoppingCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: const Icon(
-        Icons.shopping_cart,
+    return TopRightBadge(
+      data: CartManager().productCount,
+      child: IconButton(
+        onPressed: onPressed,
+        icon: const Icon(
+          Icons.shopping_cart,
+        ),
+        iconSize: 35,
+        color: const Color(0xff022840),
       ),
-      iconSize: 35,
-      color: const Color(0xff022840),
     );
   }
 }

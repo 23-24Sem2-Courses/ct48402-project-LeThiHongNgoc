@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '/ui/products/product_detail_screen.dart';
 import '../../models/product.dart';
 
-class HomeCardItem extends StatelessWidget {
-  const HomeCardItem(this.product, {super.key});
+class CategoryCardItem extends StatelessWidget {
+  const CategoryCardItem(this.product, {super.key});
 
   final Product product;
 

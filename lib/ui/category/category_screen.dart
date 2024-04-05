@@ -1,23 +1,22 @@
 import 'package:ct484_project/ui/cart/cart_screen.dart';
-import 'package:ct484_project/ui/category/category_screen.dart';
+import 'package:ct484_project/ui/category/category_card.dart';
 import 'package:ct484_project/ui/home/bottom_navigation_bar.dart';
+import 'package:ct484_project/ui/home/home_card.dart';
 import 'package:ct484_project/ui/order/orders_screen.dart';
 import 'package:ct484_project/ui/user/user_product_screen.dart';
 import '../search/custom_search.dart';
-import 'home_card.dart';
 import 'package:flutter/material.dart';
-import 'home_banner.dart';
 
 enum FilterOptions { favorites, all }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CategoryScreenState extends State<CategoryScreen> {
   var _showOnlyFavorites = false;
   int _currentIndex = 0;
   @override
@@ -59,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Shoes Store",
+          "All Product",
           style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontSize: 30,
@@ -98,14 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const HomeBanner(),
-            subTitle("All Product"),
             Expanded(
-              child: HomeCard(_showOnlyFavorites),
-            ),
-            subTitle("Best Favorite"),
-            Expanded(
-              child: HomeCard(!_showOnlyFavorites),
+              child: CategoryCard(_showOnlyFavorites),
             ),
           ],
         ),

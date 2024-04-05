@@ -9,7 +9,13 @@ class UserProductsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Products'),
+        title: Text(
+          'List Products',
+          style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+              fontSize: 30,
+              fontWeight: FontWeight.bold),
+        ),
         actions: <Widget>[
           AddUserProductButton(
             onPressed: () {
@@ -31,13 +37,31 @@ class UserProductList extends StatelessWidget {
     final productsManager = ProductsManager();
     return ListView.builder(
       itemCount: productsManager.itemCount,
-      itemBuilder: (ctx, i) => Column(
-        children: [
-          UserProductListTile(
-            productsManager.items[i],
+      itemBuilder: (ctx, i) => Dismissible(
+        key: UniqueKey(),
+        background: Container(
+          color: Colors.teal,
+          alignment: Alignment.centerRight,
+          padding: const EdgeInsets.only(right: 20.0),
+          child: const Icon(
+            Icons.delete,
+            color: Colors.white,
           ),
-          const Divider(),
-        ],
+        ),
+        direction: DismissDirection.endToStart,
+        onDismissed: (direction) {
+          print('Product deleted');
+        },
+        child: Column(
+          children: [
+            UserProductListTile(
+              productsManager.items[i],
+              currentIndex: i, // Pass currentIndex here
+              onTap: (index) {}, // Pass onTap function here
+            ),
+            const Divider(),
+          ],
+        ),
       ),
     );
   }
@@ -56,6 +80,8 @@ class AddUserProductButton extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       icon: const Icon(Icons.add),
+      iconSize: 40,
+      color: Colors.teal,
     );
   }
 }

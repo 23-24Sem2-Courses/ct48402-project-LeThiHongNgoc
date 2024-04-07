@@ -1,3 +1,5 @@
+import 'package:provider/provider.dart';
+
 import '/ui/screens.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +16,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.teal[50],
       child: Column(
         children: <Widget>[
           AppBar(
@@ -50,33 +53,8 @@ class _AppDrawerState extends State<AppDrawer> {
               Icons.person,
               size: 35,
             ),
-            title: const Text('Đăng nhập', style: TextStyle(fontSize: 20)),
-            onTap: () {
-              // TODO: Navigate to login screen
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(
-              Icons.person_add,
-              size: 35,
-            ),
             title: const Text(
-              'Đăng ký',
-              style: TextStyle(fontSize: 20),
-            ),
-            onTap: () {
-              // TODO: Navigate to registration screen
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(
-              Icons.person,
-              size: 35,
-            ),
-            title: const Text(
-              'Profile',
+              'Tài khoản',
               style: TextStyle(fontSize: 20),
             ),
             onTap: () {
@@ -85,7 +63,24 @@ class _AppDrawerState extends State<AppDrawer> {
               });
             },
           ),
-          const SizedBox(height: 490),
+          const Divider(),
+          ListTile(
+            leading: const Icon(
+              Icons.exit_to_app,
+              size: 35,
+            ),
+            title: const Text(
+              'Logout',
+              style: TextStyle(fontSize: 20),
+            ),
+            onTap: () {
+              Navigator.of(context)
+                ..pop()
+                ..pushReplacementNamed('/');
+              context.read<AuthManager>().logout();
+            },
+          ),
+          const SizedBox(height: 562),
           BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             iconSize: 30,
@@ -115,13 +110,13 @@ class _AppDrawerState extends State<AppDrawer> {
                         builder: (context) => const OrdersScreen()),
                   );
                   break;
-                // case 3:
-                //   // Navigate to ProfileScreen
-                //   Navigator.of(context).pushReplacement(
-                //     MaterialPageRoute(
-                //         builder: (context) => const ProfileScreen()),
-                //   );
-                //   break;
+                case 3:
+                  // Navigate to ProfileScreen
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()),
+                  );
+                  break;
               }
             },
             items: const [

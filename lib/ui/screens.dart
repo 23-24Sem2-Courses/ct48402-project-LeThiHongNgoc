@@ -20,8 +20,6 @@ export 'order/order_manager.dart';
 
 export 'cart/cart_screen.dart';
 export 'cart/cart_manager.dart';
-// export 'user/edit_product_screen.dart';
-export 'products/edit_product_screen.dart';
 
 export 'auth/app_banner.dart';
 export 'auth/auth_card.dart';
@@ -32,10 +30,3 @@ export './splash_screen.dart';
 export 'shared/app_drawer.dart';
 export 'shared/bottom_navigation_bar.dart';
 export 'shared/dialog_utils.dart';
-
-export 'auth/app_banner.dart';
-export 'auth/auth_card.dart';
-export 'auth/auth_manager.dart';
-export 'auth/auth_screen.dart';
-
-export './splash_screen.dart';

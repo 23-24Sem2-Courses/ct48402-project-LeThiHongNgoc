@@ -1,10 +1,6 @@
 import 'package:provider/provider.dart';
-
 import '/ui/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../auth/auth_manager.dart';
-import '../user/user_product_screen.dart';
 
 
 class AppDrawer extends StatefulWidget {

@@ -10,11 +10,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({ Key? key});
 
   @override
   Widget build(BuildContext context) {
-    final themData = ThemeData(
+    final themeData = ThemeData(
       fontFamily: 'Roboto',
       primaryColor: Colors.teal,
       primaryColorDark: const Color(0xff022840),
@@ -32,8 +32,13 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
+        ChangeNotifierProvider(create: (context) => AuthManager()),
+        ChangeNotifierProxyProvider<AuthManager, ProductsManager>(
           create: (ctx) => ProductsManager(),
+          update: (ctx, authManager, productsManager) {
+            productsManager!.authToken = authManager.authToken;
+            return productsManager;
+          },
         ),
         ChangeNotifierProvider(
           create: (ctx) => CartManager(),
@@ -41,13 +46,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => OrdersManager(),
         ),
-        ChangeNotifierProvider(create: (context) => AuthManager()),
       ],
       child: Consumer<AuthManager>(builder: (ctx, authManager, child) {
         return MaterialApp(
           title: 'Shoes Store',
           debugShowCheckedModeBanner: false,
-          theme: themData,
+          theme: themeData,
           home: authManager.isAuth
               ? const SafeArea(child: HomeScreen())
               : FutureBuilder(
@@ -71,19 +75,21 @@ class MyApp extends StatelessWidget {
           },
           onGenerateRoute: (settings) {
             if (settings.name == ProductDetailScreen.routeName) {
-              final productId = settings.arguments as String;
-              return MaterialPageRoute(
-                settings: settings,
-                builder: (ctx) {
-                  return SafeArea(
-                    child: ProductDetailScreen(
-                      ProductsManager().findById(productId)!,
-                    ),
+              final productId = settings.arguments as String?;
+              if (productId != null) {
+                final product = ctx.read<ProductsManager>().findById(productId);
+                if (product != null) {
+                  return MaterialPageRoute(
+                    settings: settings,
+                    builder: (ctx) {
+                      return SafeArea(
+                        child: ProductDetailScreen(product),
+                      );
+                    },
                   );
-                },
-              );
+                }
+              }
             }
-
             if (settings.name == EditProductScreen.routeName) {
               final productId = settings.arguments as String?;
               return MaterialPageRoute(

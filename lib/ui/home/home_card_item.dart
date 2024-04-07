@@ -27,7 +27,7 @@ class HomeCardItem extends StatelessWidget {
               color: Colors.grey.withOpacity(0.7),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: const Offset(0, 3),
+              offset: const Offset(0, 5),
             ),
           ],
         ),
@@ -42,6 +42,7 @@ class HomeCardItem extends StatelessWidget {
                 child: Image.asset(
                   product.imageUrl,
                   fit: BoxFit.fitHeight,
+                  
                 ),
               ),
               // CardRight

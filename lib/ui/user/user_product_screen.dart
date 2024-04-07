@@ -77,7 +77,22 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
           ),
         ],
       ),
-      body: Container(color: Colors.teal[50], child: const UserProductList()),
+      body: FutureBuilder(
+        future: context.read<ProductsManager>().fetchUserProducts(),            
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return RefreshIndicator(
+            onRefresh: () => 
+                context.read<ProductsManager>().fetchUserProducts(),
+            child: const UserProductList(),
+          );          
+
+        },
+      ),
       bottomNavigationBar: customBottomNavigationBar,
     );
   }

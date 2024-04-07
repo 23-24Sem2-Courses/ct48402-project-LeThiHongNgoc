@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AppBanner extends StatelessWidget {
@@ -13,12 +11,12 @@ class AppBanner extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20.0),
       padding: const EdgeInsets.symmetric(
         vertical: 8.0,
-        horizontal: 94.0,
+        horizontal: 40.0,
       ),
-      transform: Matrix4.rotationZ(-8 * pi / 180)..translate(-10.0),
+      //transform: Matrix4.rotationZ(-8 * pi / 180)..translate(-10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.deepOrange.shade900,
+        color: Colors.teal,
         boxShadow: const [
           BoxShadow(
             blurRadius: 8,
@@ -27,11 +25,11 @@ class AppBanner extends StatelessWidget {
           )
         ],
       ),
-      child: Text(
-        'MyShop',
+      child: const Text(
+        'Shose Store',
         style: TextStyle(
-          color: Theme.of(context).textTheme.titleLarge?.color,
-          fontSize: 50,
+          color: Colors.black,
+          fontSize: 40,
           fontFamily: 'Anton',
           fontWeight: FontWeight.normal,
         ),

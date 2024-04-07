@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
+import '../products/edit_product_screen.dart';
 
 class UserProductListTile extends StatelessWidget {
   final Product product;
@@ -55,8 +56,11 @@ class UserProductListTile extends StatelessWidget {
             icon: const Icon(Icons.edit),
             color: Colors.amber,
             iconSize: 30,
-            onPressed: () {
-              print('Edit product: ${product.title}');
+            onPressed: () {              
+                  Navigator.of(context).pushNamed(
+                    EditProductScreen.routeName,
+                    arguments: product.id,
+                  );
             },
           ),
         ),

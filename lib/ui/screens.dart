@@ -31,7 +31,6 @@ export './splash_screen.dart';
 
 export 'shared/app_drawer.dart';
 export 'shared/bottom_navigation_bar.dart';
-<<<<<<< HEAD
 export 'shared/dialog_utils.dart';
 
 export 'auth/app_banner.dart';
@@ -40,6 +39,3 @@ export 'auth/auth_manager.dart';
 export 'auth/auth_screen.dart';
 
 export './splash_screen.dart';
-=======
-export 'shared/dialog_utils.dart';
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50

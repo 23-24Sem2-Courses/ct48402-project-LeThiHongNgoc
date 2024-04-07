@@ -69,7 +69,6 @@ class _AppDrawerState extends State<AppDrawer> {
           ),
           const Divider(),
           ListTile(
-<<<<<<< HEAD
             leading: const Icon(
               Icons.exit_to_app,
               size: 35,
@@ -86,18 +85,6 @@ class _AppDrawerState extends State<AppDrawer> {
             },
           ),
           const SizedBox(height: 562),
-=======
-            leading: const Icon(Icons.exit_to_app),
-            title: const Text('Logout'),
-            onTap: () {
-              Navigator.of(context)
-                  ..pop()
-                  ..pushReplacementNamed('/');
-                context.read<AuthManager>().logout();
-            },
-          ),
-          const SizedBox(height: 490),
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
           BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             iconSize: 30,

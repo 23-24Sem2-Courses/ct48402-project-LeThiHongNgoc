@@ -4,14 +4,63 @@ import 'package:flutter/services.dart';
 import './ui/screens.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-Future<void> main() async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  runApp(const MyApp());
+  runApp(WelcomeApp());
+}
+
+class WelcomeApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WelcomeScreen(),
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  final String imagePath = "assets/images/products/welcome.webp";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyApp(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white, // Màu nền của nút
+            ),
+            child: Text(
+              'Get start!',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 40, // Màu chữ của nút
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
-
   @override
   Widget build(BuildContext context) {
     final themeData = ThemeData(
@@ -40,7 +89,7 @@ class MyApp extends StatelessWidget {
             return productsManager;
           },
         ),
-         ChangeNotifierProxyProvider<AuthManager, CartManager>(
+        ChangeNotifierProxyProvider<AuthManager, CartManager>(
           create: (ctx) => CartManager(),
           update: (ctx, authManager, cartManager) {
             cartManager!.authToken = authManager.authToken;
@@ -54,12 +103,12 @@ class MyApp extends StatelessWidget {
             return orderManager;
           },
         ),
-        
       ],
       child: Consumer<AuthManager>(builder: (ctx, authManager, child) {
         return MaterialApp(
           title: 'Shose Store',
-          debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner:
+              false, // Đặt giá trị này thành false để xóa banner debug
           theme: themeData,
           home: authManager.isAuth
               ? const SafeArea(child: HomeScreen())
@@ -67,11 +116,10 @@ class MyApp extends StatelessWidget {
                   future: authManager.tryAutoLogin(),
                   builder: (ctx, snapshot) {
                     return snapshot.connectionState == ConnectionState.waiting
-                      ? const SafeArea(child: SplashScreen())
-                      : const SafeArea(child: AuthScreen());
+                        ? const SafeArea(child: SplashScreen())
+                        : const SafeArea(child: AuthScreen());
                   },
-      
-                       ),
+                ),
           routes: {
             CartScreen.routeName: (ctx) => const SafeArea(
                   child: CartScreen(),
@@ -99,7 +147,7 @@ class MyApp extends StatelessWidget {
                   );
                 }
               }
-                }
+            }
 
             if (settings.name == EditProductScreen.routeName) {
               final productId = settings.arguments as String?;
@@ -122,5 +170,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-              
-                

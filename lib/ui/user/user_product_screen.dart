@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../products/products_manager.dart';
 import 'user_product_list_tile.dart';
+import '../products/edit_product_screen.dart';
 // import '../../models/product.dart';
 
 class UserProductsScreen extends StatefulWidget {
@@ -69,7 +70,9 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
         actions: <Widget>[
           AddUserProductButton(
             onPressed: () {
-              print('Go to edit product screen');
+              Navigator.of(context).pushNamed(
+                EditProductScreen.routeName,
+              );
             },
           ),
         ],

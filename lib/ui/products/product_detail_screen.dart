@@ -191,7 +191,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       const SnackBar(
-                        content: Text('Added to cart'),
+                        content: Text('Thêm vào giỏ hàng thành công'),
                       ),
                     );
                 } else {
@@ -199,7 +199,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       const SnackBar(
-                        content: Text('Please select a quantity'),
+                        content: Text('Vui lòng chọn số lượng'),
                       ),
                     );
                 }
@@ -273,7 +273,7 @@ class CartButton extends StatelessWidget {
               ),
             ),
             child: const Text(
-              'Add to Cart',
+              'Thêm vào giỏ hàng',
               style: TextStyle(
                 fontSize: 25,
                 color: Colors.white,

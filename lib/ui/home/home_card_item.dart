@@ -156,11 +156,11 @@ class CartButtonBottomRight extends StatelessWidget {
             ..showSnackBar(
               SnackBar(
                 content: const Text(
-                  'Item added to cart',
+                  'Thêm sản phẩm vào giỏ hàng',
                 ),
                 duration: const Duration(seconds: 2),
                 action: SnackBarAction(
-                  label: 'UNDO',
+                  label: 'Hủy',
                   onPressed: () {
                     cart.removeItem(product.id!);
                   },

@@ -2,6 +2,7 @@ import './../screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/product.dart';
+import '../products/products_manager.dart';
 
 class HomeGird extends StatelessWidget {
   final bool showFavorites;

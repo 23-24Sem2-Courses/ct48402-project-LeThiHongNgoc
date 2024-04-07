@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/cart_item.dart';
-import './../screens.dart';
+import '../cart/cart_manager.dart';
+import '../shared/dialog_utils.dart';
 
 class CustomCartItemCard extends StatelessWidget {
   final String productId;

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import './../screens.dart';
 
+import 'cart_item_card.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
   const CartScreen({super.key});
@@ -12,6 +13,7 @@ class CartScreen extends StatelessWidget {
     // final cart = CartManager();
     // context.watch có chức năng tương tự như widget Consumer
     final cart = context.watch<CartManager>();
+    late Future<void> fetchCart = context.read<CartManager>().fetchCartItems();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -55,7 +57,7 @@ class CartScreen extends StatelessWidget {
               onOnderNowPressed: cart.totalAmount <= 0
                   ? null
                   : () {
-                      context.read<OrdersManager>().addOrder(
+                      context.read<OrdersManager>().addOrderItem(
                             cart.products,
                             cart.totalAmount,
                           );

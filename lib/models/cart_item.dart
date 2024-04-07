@@ -15,17 +15,36 @@ class CartItem {
 
   CartItem copyWith({
     String? id,
-    String? title,
+    String?  title,
     String? imageUrl,
     int? quantity,
     double? price,
   }) {
     return CartItem(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      imageUrl: imageUrl ?? this.imageUrl,
-      quantity: quantity ?? this.quantity,
+      id: id ?? this.id, 
+      title: title ?? this.title, 
+      imageUrl: imageUrl ?? this.imageUrl, 
+      quantity: quantity ?? this.quantity, 
       price: price ?? this.price,
+      );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'imageUrl': imageUrl,
+      'quantity': quantity,
+      'price': price,
+    };
+  }
+
+  static CartItem fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      id: json['id'],
+      title: json['title'],
+      imageUrl: json['imageUrl'],
+      quantity: json['quantity'],
+      price: json['price']
     );
   }
 }

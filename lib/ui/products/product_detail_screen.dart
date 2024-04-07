@@ -1,8 +1,7 @@
-import 'package:ct484_project/ui/cart/cart_screen.dart';
-import 'package:ct484_project/ui/home/home_screen.dart';
-import 'package:ct484_project/ui/search/custom_search.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/product.dart';
+import './../screens.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const routeName = '/product-detail';
@@ -21,6 +20,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int _quantity = 1;
+  bool isFavorite = false;
   TextEditingController quantityController = TextEditingController();
 
   void _increaseQuantity() {
@@ -183,20 +183,40 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               const SizedBox(
                 height: 20,
               ),
-              CartButton(
-                onPressed: () {
+              CartButton(onPressed: () {
+                if (_quantity > 0) {
+                  final cart = context.read<CartManager>();
+                  cart.addItemWithQuantity(widget.product, _quantity);
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       const SnackBar(
-                        content: Text(
-                          'Đã thêm sản phẩm vào giỏ hàng',
-                          textAlign: TextAlign.center,
-                        ),
+                        content: Text('Added to cart'),
                       ),
                     );
-                },
-              ),
+                } else {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      const SnackBar(
+                        content: Text('Please select a quantity'),
+                      ),
+                    );
+                }
+              }
+
+                  // ScaffoldMessenger.of(context)
+                  //   ..hideCurrentSnackBar()
+                  //   ..showSnackBar(
+                  //     const SnackBar(
+                  //       content: Text(
+                  //         'Đã thêm sản phẩm vào giỏ hàng',
+                  //         textAlign: TextAlign.center,
+                  //       ),
+                  //     ),
+                  //   );
+                  // },
+                  ),
             ],
           ),
         ),
@@ -227,10 +247,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 class CartButton extends StatelessWidget {
   const CartButton({
     super.key,
-    this.onPressed,
+    required this.onPressed,
+    this.quantity,
   });
 
-  final void Function()? onPressed;
+  final void Function() onPressed;
+  final int? quantity;
 
   @override
   Widget build(BuildContext context) {

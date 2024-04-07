@@ -1,11 +1,6 @@
-import 'package:ct484_project/ui/home/home_screen.dart';
-import 'package:ct484_project/ui/order/order_manager.dart';
-import 'package:ct484_project/ui/order/orders_screen.dart';
-import 'package:ct484_project/ui/search/custom_search.dart';
 import 'package:provider/provider.dart';
-import '/ui/cart/cart_item_card.dart';
-import '/ui/cart/cart_manager.dart';
 import 'package:flutter/material.dart';
+import './../screens.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';

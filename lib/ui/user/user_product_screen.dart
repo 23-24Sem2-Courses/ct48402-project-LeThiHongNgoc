@@ -1,16 +1,6 @@
-import 'package:ct484_project/ui/search/custom_search.dart';
-
-import '/ui/home/home_screen.dart';
-import '/ui/screens.dart';
-import '/ui/shared/bottom_navigation_bar.dart';
-import '/ui/shared/dialog_utils.dart';
-import '/ui/user/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../products/products_manager.dart';
-import 'user_product_list_tile.dart';
-import '../products/edit_product_screen.dart';
-// import '../../models/product.dart';
+import './../screens.dart';
 
 class UserProductsScreen extends StatefulWidget {
   static const routeName = '/user-products';

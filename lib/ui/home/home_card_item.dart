@@ -1,8 +1,7 @@
-import 'package:ct484_project/ui/cart/cart_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/ui/products/product_detail_screen.dart';
 import '../../models/product.dart';
+import './../screens.dart';
 
 class HomeCardItem extends StatelessWidget {
   const HomeCardItem(this.product, {super.key});
@@ -150,7 +149,7 @@ class CartButtonBottomRight extends StatelessWidget {
         ), //onAddToCartPressed,
         onPressed: () {
           final cart = context.read<CartManager>();
-          cart.addItem(product);
+          cart.addItemWithQuantity(product, 1);
           // cart.addItem(product);
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

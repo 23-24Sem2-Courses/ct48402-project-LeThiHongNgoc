@@ -83,4 +83,32 @@ class CartManager with ChangeNotifier {
     _items = {};
     notifyListeners();
   }
+
+  // Tạo thêm phương thức thêm sản phẩm theo số lượng nhập vào.
+  void addItemWithQuantity(Product product, int quantity) {
+    if (quantity <= 0) {
+      throw Exception('Quantity must be greater than 0');
+    }
+
+    if (_items.containsKey(product.id)) {
+      _items.update(
+        product.id!,
+        (existingCartItem) => existingCartItem.copyWith(
+          quantity: existingCartItem.quantity + quantity,
+        ),
+      );
+    } else {
+      _items.putIfAbsent(
+        product.id!,
+        () => CartItem(
+          id: 'c${DateTime.now().toIso8601String()}',
+          title: product.title,
+          imageUrl: product.imageUrl,
+          quantity: quantity,
+          price: product.price,
+        ),
+      );
+    }
+    notifyListeners();
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
-import '../products/edit_product_screen.dart';
+import './../screens.dart';
 
 class UserProductListTile extends StatelessWidget {
   final Product product;

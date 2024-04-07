@@ -1,7 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'ui/home/home_screen.dart';
 import './ui/screens.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

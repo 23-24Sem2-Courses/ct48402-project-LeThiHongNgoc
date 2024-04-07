@@ -2,10 +2,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-<<<<<<< HEAD
-
-=======
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
 import './ui/screens.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -48,10 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (context) => AuthManager()),
       ],
-<<<<<<< HEAD
       child: Consumer<AuthManager>(builder: (ctx, authManager, child) {
         return MaterialApp(
-          title: 'MyShop',
+          title: 'Shoes Store',
           debugShowCheckedModeBanner: false,
           theme: themData,
           home: authManager.isAuth
@@ -164,71 +159,3 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
-=======
-      child: Consumer<AuthManager>(
-        builder: (ctx, authManager, child) {
-          return MaterialApp(
-            title: 'MyShop',
-            debugShowCheckedModeBanner: false,
-            theme: themData,
-            home: authManager.isAuth  
-                ? const SafeArea(child: HomeScreen()) 
-                : FutureBuilder(
-                  future: authManager.tryAutoLogin(), 
-                  builder: (ctx, snapshot){
-                    return snapshot.connectionState == ConnectionState.waiting
-                      ? const SafeArea(child: SplashScreen())
-                      : const SafeArea(child: AuthScreen());
-                  },
-      
-                  ),
-                  routes: {
-              CartScreen.routeName: (ctx) => const SafeArea(
-                    child: CartScreen(),
-                  ),
-              OrdersScreen.routeName: (ctx) => const SafeArea(
-                    child: OrdersScreen(),
-                  ),
-              UserProductsScreen.routeName: (ctx) => const SafeArea(
-                    child: UserProductsScreen(),
-                  ),
-            },
-            onGenerateRoute: (settings) {
-              if (settings.name == ProductDetailScreen.routeName) {
-                final productId = settings.arguments as String;
-                return MaterialPageRoute(
-                  settings: settings,
-                  builder: (ctx) {
-                    return SafeArea(
-                      child: ProductDetailScreen(
-                        ProductsManager().findById(productId)!,
-                      ),
-                    );
-                  },
-                );
-              }
-
-              if (settings.name == EditProductScreen.routeName) {
-                final productId = settings.arguments as String?;
-                return MaterialPageRoute(
-                  builder: (ctx) {
-                    return SafeArea(
-                      child: EditProductScreen(
-                        productId != null
-                            ? ctx.read<ProductsManager>().findById(productId)
-                            : null,
-                      ),
-                    );
-                  },
-                );
-                }
-              return null;
-            },
-          );
-        }
-      ),
-    );
-  }
-}
-                
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50

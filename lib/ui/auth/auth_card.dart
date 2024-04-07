@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
 import '../../models/http_exception.dart';
 import '../shared/dialog_utils.dart';
 
@@ -89,11 +85,7 @@ class _AuthCardState extends State<AuthCard> {
         height: _authMode == AuthMode.signup ? 320 : 260,
         constraints:
             BoxConstraints(minHeight: _authMode == AuthMode.signup ? 320 : 260),
-<<<<<<< HEAD
         width: deviceSize.width * 0.85,
-=======
-        width: deviceSize.width * 0.75,
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
@@ -130,7 +122,6 @@ class _AuthCardState extends State<AuthCard> {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-<<<<<<< HEAD
         textStyle: const TextStyle(
           color: Colors.teal,
         ),
@@ -140,14 +131,6 @@ class _AuthCardState extends State<AuthCard> {
               ? 'Bạn chưa có tài khoản ? Đăng ký'
               : 'Bạn đã có tài khoản ? Đăng nhập',
           style: const TextStyle(color: Colors.teal, fontSize: 16)),
-=======
-        textStyle: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ),
-      child:
-          Text('${_authMode == AuthMode.login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
     );
   }
 
@@ -156,7 +139,6 @@ class _AuthCardState extends State<AuthCard> {
       onPressed: _submit,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
-<<<<<<< HEAD
           borderRadius: BorderRadius.circular(20),
         ),
         backgroundColor: Theme.of(context).primaryColor,
@@ -167,15 +149,6 @@ class _AuthCardState extends State<AuthCard> {
         _authMode == AuthMode.login ? 'LOGIN' : 'SIGNUP',
         style: const TextStyle(fontSize: 16),
       ),
-=======
-          borderRadius: BorderRadius.circular(30),
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-      ),
-      child: Text(_authMode == AuthMode.login ? 'LOGIN' : 'SIGN UP'),
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
     );
   }
 

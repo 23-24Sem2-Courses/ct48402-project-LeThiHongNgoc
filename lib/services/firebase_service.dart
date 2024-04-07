@@ -1,9 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-<<<<<<< HEAD
-=======
-
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../models/auth_token.dart';
@@ -19,11 +15,7 @@ abstract class FirebaseService {
   FirebaseService([AuthToken? authToken])
       : _token = authToken?.token,
         _userId = authToken?.userId {
-<<<<<<< HEAD
     databaseUrl = dotenv.env['FIREBASE_RTDB_URL'];
-=======
-    databaseUrl = dotenv.env['FIREBASE_URL'];
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
   }
 
   set authToken(AuthToken? authToken) {
@@ -76,8 +68,4 @@ abstract class FirebaseService {
     }
     return json;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50

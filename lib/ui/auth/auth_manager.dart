@@ -61,8 +61,4 @@ class AuthManager with ChangeNotifier {
         _authToken!.expiryDate.difference(DateTime.now()).inSeconds;
     _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50

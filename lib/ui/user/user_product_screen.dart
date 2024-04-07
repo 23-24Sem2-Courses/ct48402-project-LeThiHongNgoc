@@ -71,7 +71,9 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearch(),
+                delegate: CustomSearch(
+                  Provider.of<ProductsManager>(context, listen: false).items,
+                ),
               );
             },
           ),

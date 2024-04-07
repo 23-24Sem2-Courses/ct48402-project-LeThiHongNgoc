@@ -1,7 +1,6 @@
 import 'dart:convert';
 import '../models/product.dart';
 import 'firebase_service.dart';
-import '../models/auth_token.dart';
 
 class ProductsService extends FirebaseService {
   ProductsService([super.authToken]);
@@ -92,7 +91,7 @@ class ProductsService extends FirebaseService {
   Future<bool> saveFavoriteStatus(Product product) async {
     try {
       await httpFetch(
-        '$databaseUrl/Favorites/$userId/${product.id}.json?auth=$token',
+        '$databaseUrl/userFavorites/$userId/${product.id}.json?auth=$token',
         method: HttpMethod.put,
         body: jsonEncode(product.isFavorite),
       );

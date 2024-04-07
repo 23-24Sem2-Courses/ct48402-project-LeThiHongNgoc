@@ -73,7 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearch(),
+                delegate: CustomSearch(
+                  Provider.of<ProductsManager>(context, listen: false).items,
+                ),
               );
             },
           ),

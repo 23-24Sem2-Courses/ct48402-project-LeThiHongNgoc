@@ -28,7 +28,9 @@ class CartScreen extends StatelessWidget {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearch(),
+                delegate: CustomSearch(
+                  Provider.of<ProductsManager>(context, listen: false).items,
+                ),
               );
             },
           ),

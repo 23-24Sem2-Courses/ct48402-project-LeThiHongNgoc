@@ -68,7 +68,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearch(),
+                delegate: CustomSearch(
+                  Provider.of<ProductsManager>(context, listen: false).items,
+                ),
               );
             },
           ),
@@ -95,11 +97,12 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 elevation: 5,
                 child: ListTile(
                   title: Text(
-                    'Đơn hàng: ${order.id}',
+                    'Đơn hàng',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   subtitle: Text(
                     'Ngày đặt: ${DateFormat('dd/MM/yyyy').format(order.dateTime)}',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   trailing: Text(
                     '\$${order.amount.toStringAsFixed(2)}',
@@ -152,8 +155,12 @@ class OrderDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Đơn hàng #${order.id}',
+                'Đơn hàng',
                 style: Theme.of(context).textTheme.titleLarge,
+              ),
+              Text(
+                'ID: ${order.id}',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 10),
               Text(
@@ -173,7 +180,7 @@ class OrderDetailScreen extends StatelessWidget {
                     title: Text(
                       product.title,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
+                          fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     subtitle: Text(
                       '${product.quantity} x \$${product.price}',
@@ -184,16 +191,16 @@ class OrderDetailScreen extends StatelessWidget {
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18),
+                          fontSize: 20),
                     ),
                   );
                 },
               ),
               const Divider(),
               Text(
-                'Tổng cộng: \$${order.amount.toStringAsFixed(2)}',
+                'Tổng cộng:                    \$${order.amount.toStringAsFixed(2)}',
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
               ),

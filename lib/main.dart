@@ -4,15 +4,76 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './ui/screens.dart';
 
-Future<void> main() async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
-  runApp(const MyApp());
+  runApp(const WelcomeApp());
+}
+
+class WelcomeApp extends StatelessWidget {
+  const WelcomeApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: WelcomeScreen(),
+    );
+  }
+}
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image:
+                      AssetImage('assets/images/backgrounds/background_6.gif'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+              padding: const EdgeInsets.only(top: 500),
+              child: SizedBox(
+                height: 200,
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyApp(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                    ),
+                    child: const Text(
+                      'Get start!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -121,56 +182,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-      // child: MaterialApp(
-      //   title: 'Shoes Store',
-      //   debugShowCheckedModeBanner: false,
-      //   theme: themData,
-      //   // Hiệu chỉnh trang home
-      //   home: const HomeScreen(),
-      //   routes: {
-      //     CartScreen.routeName: (ctx) => const SafeArea(
-      //           child: CartScreen(),
-      //         ),
-      //     OrdersScreen.routeName: (ctx) => const SafeArea(
-      //           child: OrdersScreen(),
-      //         ),
-      //     UserProductsScreen.routeName: (ctx) => const SafeArea(
-      //           child: UserProductsScreen(),
-      //         ),
-      //   },
-
-      //   onGenerateRoute: (settings) {
-
-      //     if (settings.name == ProductDetailScreen.routeName) {
-      //       final productId = settings.arguments as String;
-      //       return MaterialPageRoute(
-      //         settings: settings,
-      //         builder: (ctx) {
-      //           return SafeArea(
-      //             child: ProductDetailScreen(
-      //               ProductsManager().findById(productId)!,
-      //             ),
-      //           );
-      //         },
-      //       );
-      //     }
-      //     if (settings.name == EditProductScreen.routeName) {
-      //       final productId = settings.arguments as String?;
-      //       return MaterialPageRoute(
-      //         builder: (ctx) {
-      //           return SafeArea(
-      //             child: EditProductScreen(
-      //               productId != null
-      //                   ? ctx.read<ProductsManager>().findById(productId)
-      //                   : null,
-      //             ),
-      //           );
-      //         },
-      //       );
-      //     }
-      //     return null;
-      //   },
-      // ),
-//     );
-//   }
-// }

@@ -2,7 +2,6 @@ import 'package:provider/provider.dart';
 import '/ui/screens.dart';
 import 'package:flutter/material.dart';
 
-
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
 
@@ -34,7 +33,10 @@ class _AppDrawerState extends State<AppDrawer> {
                 onPressed: () {
                   showSearch(
                     context: context,
-                    delegate: CustomSearch(),
+                    delegate: CustomSearch(
+                      Provider.of<ProductsManager>(context, listen: false)
+                          .items,
+                    ),
                   );
                 },
               ),

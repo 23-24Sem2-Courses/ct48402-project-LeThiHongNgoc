@@ -4,6 +4,10 @@ import '/ui/home/home_screen.dart';
 import '/ui/screens.dart';
 // import '/ui/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../auth/auth_manager.dart';
+import '../user/user_product_screen.dart';
+
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
@@ -87,6 +91,17 @@ class _AppDrawerState extends State<AppDrawer> {
               setState(() {
                 _currentIndex = 3;
               });
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.of(context)
+                  ..pop()
+                  ..pushReplacementNamed('/');
+                context.read<AuthManager>().logout();
             },
           ),
           const SizedBox(height: 490),

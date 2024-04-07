@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'ui/home/home_screen.dart';
 import './ui/screens.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -40,57 +42,71 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => OrdersManager(),
         ),
+        ChangeNotifierProvider(create: (context) => AuthManager()),
       ],
-      child: MaterialApp(
-        title: 'Shoes Store',
-        debugShowCheckedModeBanner: false,
-        theme: themData,
-        // Hiệu chỉnh trang home
-        home: const HomeScreen(),
-        routes: {
-          CartScreen.routeName: (ctx) => const SafeArea(
-                child: CartScreen(),
-              ),
-          OrdersScreen.routeName: (ctx) => const SafeArea(
-                child: OrdersScreen(),
-              ),
-          UserProductsScreen.routeName: (ctx) => const SafeArea(
-                child: UserProductsScreen(),
-              ),
-        },
-        onGenerateRoute: (settings) {
-          if (settings.name == ProductDetailScreen.routeName) {
-            final productId = settings.arguments as String;
-            return MaterialPageRoute(
-              settings: settings,
-              builder: (ctx) {
-                return SafeArea(
-                  child: ProductDetailScreen(
-                    ProductsManager().findById(productId)!,
+      child: Consumer<AuthManager>(
+        builder: (ctx, authManager, child) {
+          return MaterialApp(
+            title: 'MyShop',
+            debugShowCheckedModeBanner: false,
+            theme: themData,
+            home: authManager.isAuth  
+                ? const SafeArea(child: HomeScreen()) 
+                : FutureBuilder(
+                  future: authManager.tryAutoLogin(), 
+                  builder: (ctx, snapshot){
+                    return snapshot.connectionState == ConnectionState.waiting
+                      ? const SafeArea(child: SplashScreen())
+                      : const SafeArea(child: AuthScreen());
+                  },
+      
                   ),
-                );
-              },
-            );
-          }
-          if (settings.name == EditProductScreen.routeName) {
-            final productId = settings.arguments as String?;
-            return MaterialPageRoute(
-              builder: (ctx) {
-                return SafeArea(
-                  child: EditProductScreen(
-                    productId != null
-                        ? ctx.read<ProductsManager>().findById(productId)
-                        : null,
+                  routes: {
+              CartScreen.routeName: (ctx) => const SafeArea(
+                    child: CartScreen(),
                   ),
+              OrdersScreen.routeName: (ctx) => const SafeArea(
+                    child: OrdersScreen(),
+                  ),
+              UserProductsScreen.routeName: (ctx) => const SafeArea(
+                    child: UserProductsScreen(),
+                  ),
+            },
+            onGenerateRoute: (settings) {
+              if (settings.name == ProductDetailScreen.routeName) {
+                final productId = settings.arguments as String;
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (ctx) {
+                    return SafeArea(
+                      child: ProductDetailScreen(
+                        ProductsManager().findById(productId)!,
+                      ),
+                    );
+                  },
                 );
-              },
-            );
-          }
-          return null;
-        },
+              }
+
+              if (settings.name == EditProductScreen.routeName) {
+                final productId = settings.arguments as String?;
+                return MaterialPageRoute(
+                  builder: (ctx) {
+                    return SafeArea(
+                      child: EditProductScreen(
+                        productId != null
+                            ? ctx.read<ProductsManager>().findById(productId)
+                            : null,
+                      ),
+                    );
+                  },
+                );
+                }
+              return null;
+            },
+          );
+        }
       ),
-
-
     );
   }
 }
+                

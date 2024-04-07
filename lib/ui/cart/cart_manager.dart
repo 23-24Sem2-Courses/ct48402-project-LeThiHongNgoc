@@ -8,8 +8,7 @@ class CartManager with ChangeNotifier {
     'p1': CartItem(
       id: 'c1',
       title: 'Red Shirt',
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+      imageUrl: 'assets/images/products/product_1.png',
       price: 29.99,
       quantity: 2,
     ),

@@ -24,14 +24,14 @@ class UserProductListTile extends StatelessWidget {
         ),
         elevation: 5,
         child: ListTile(
-          contentPadding: const EdgeInsets.all(20.0),
+          contentPadding: const EdgeInsets.all(5.0),
           leading: SizedBox(
             width: 100,
-            height: 300,
+            height: 100,
             child: CircleAvatar(
               backgroundColor: Colors.grey,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(5.0),
                 child: Image.asset(
                   product.imageUrl,
                   fit: BoxFit.cover,
@@ -48,12 +48,12 @@ class UserProductListTile extends StatelessWidget {
             '\$${product.price}',
             style: const TextStyle(
               fontSize: 18,
-              color: Colors.teal,
+              color: Colors.grey,
             ),
           ),
           trailing: IconButton(
             icon: const Icon(Icons.edit),
-            color: Colors.teal,
+            color: Colors.amber,
             iconSize: 30,
             onPressed: () {
               print('Edit product: ${product.title}');

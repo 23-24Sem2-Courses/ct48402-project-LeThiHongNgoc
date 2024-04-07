@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import '/ui/user/profile_screen.dart';
 import '/ui/home/home_grid.dart';
 import '/ui/home/top_right_badge.dart';
@@ -86,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Container(
+        color: Colors.teal[50],
         constraints: const BoxConstraints.expand(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -161,17 +163,33 @@ class ShoppingCartButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TopRightBadge(
-      data: CartManager().productCount,
-      child: IconButton(
-        onPressed: onPressed,
-        icon: const Icon(
-          Icons.shopping_cart,
-        ),
-        iconSize: 35,
-        color: const Color(0xff022840),
-      ),
+    return Consumer<CartManager>(
+      builder: (ctx, cartManager, child) {
+        return TopRightBadge(
+          data: CartManager().productCount,
+          child: IconButton(
+            onPressed: onPressed,
+            icon: const Icon(
+              Icons.shopping_cart,
+            ),
+            iconSize: 35,
+            color: const Color(0xff022840),
+          ),
+        );
+      },
     );
+    // return TopRightBadge(
+    //   data: CartManager().productCount,
+    //   child: IconButton(
+    //     onPressed: onPressed,
+    //     icon: const Icon(
+    //       Icons.shopping_cart,
+    //     ),
+    //     iconSize: 35,
+    //     color: const Color(0xff022840),
+    //   ),
+
+    // );
   }
 }
 

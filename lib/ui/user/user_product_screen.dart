@@ -1,3 +1,5 @@
+import 'package:ct484_project/ui/search/custom_search.dart';
+
 import '/ui/home/home_screen.dart';
 import '/ui/screens.dart';
 import '/ui/shared/bottom_navigation_bar.dart';
@@ -60,7 +62,7 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'List Products',
+          'D.Sách Giày',
           style: TextStyle(
               color: Theme.of(context).primaryColorDark,
               fontSize: 30,
@@ -72,9 +74,17 @@ class _UserProductsScreenState extends State<UserProductsScreen> {
               print('Go to edit product screen');
             },
           ),
+          SearchButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearch(),
+              );
+            },
+          ),
         ],
       ),
-      body: const UserProductList(),
+      body: Container(color: Colors.teal[50], child: const UserProductList()),
       bottomNavigationBar: customBottomNavigationBar,
     );
   }
@@ -94,7 +104,7 @@ class UserProductList extends StatelessWidget {
         itemBuilder: (ctx, i) => Dismissible(
           key: UniqueKey(),
           background: Container(
-            color: Colors.teal,
+            // color: Colors.teal[50],
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 20.0),
             margin: const EdgeInsets.symmetric(
@@ -103,8 +113,8 @@ class UserProductList extends StatelessWidget {
             ),
             child: const Icon(
               Icons.delete,
-              color: Colors.white,
-              size: 30,
+              color: Colors.red,
+              size: 35,
             ),
           ),
           direction: DismissDirection.endToStart,
@@ -119,8 +129,8 @@ class UserProductList extends StatelessWidget {
             // Đọc ra ProductsManager để xóa product
             // context.read<ProductsManager>().deleteProduct(product.id!);
             final product =
-                productsManager.items[i]; // Get the product at index i
-            productsManager.deleteProduct(product.id!); // Delete the product
+                productsManager.items[i]; 
+            productsManager.deleteProduct(product.id!); 
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(

@@ -1,4 +1,6 @@
+import 'package:ct484_project/ui/cart/cart_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../models/cart_item.dart';
 import '../shared/dialog_utils.dart';
 
@@ -16,24 +18,23 @@ class CustomCartItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(10),
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(0),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Container(
               width: 150,
-              height: 150,
+              height: 120,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
-              ),
-              child: Image.network(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.grey[400]),
+              child: Image.asset(
                 cartItem.imageUrl,
                 width: 150,
-                height: 100,
-                fit: BoxFit.cover,
+                height: 120,
+                fit: BoxFit.contain,
               ),
             ),
             const SizedBox(width: 16),
@@ -73,12 +74,37 @@ class CustomCartItemCard extends StatelessWidget {
                 size: 35,
                 color: Colors.red,
               ),
-              onPressed: () async {
-                await showConfirmDialog(
-                  context,
-                  'Bạn muốn xóa sản phẩm này khỏi giỏ hàng?',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Xác nhận xóa sản phẩm'),
+                    content:
+                        const Text('Bạn muốn xóa sản phẩm này khỏi giỏ hàng?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Hủy'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.read<CartManager>().clearItem(productId);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text('Xóa'),
+                      ),
+                    ],
+                  ),
                 );
               },
+              // onPressed: () {
+              //   await showConfirmDialog(
+              //     context.read<CartManager>().clearItem(productId),
+              //     'Bạn muốn xóa sản phẩm này khỏi giỏ hàng?',
+              //   );
+              // },
             ),
           ],
         ),

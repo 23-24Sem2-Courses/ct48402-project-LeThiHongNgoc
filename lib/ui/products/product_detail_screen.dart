@@ -1,3 +1,6 @@
+import 'package:ct484_project/ui/cart/cart_screen.dart';
+import 'package:ct484_project/ui/home/home_screen.dart';
+import 'package:ct484_project/ui/search/custom_search.dart';
 import 'package:flutter/material.dart';
 import '../../models/product.dart';
 
@@ -66,143 +69,160 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               fontWeight: FontWeight.bold),
         ),
         actions: [
-          FavoriteProductButton(
-            onPressed: () {},
+          SearchButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearch(),
+              );
+            },
           ),
-          CartProductButton(
-            onPressed: () {},
+          ShoppingCartButton(
+            onPressed: () {
+              // Navigate to CartScreen
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const CartScreen()),
+              );
+            },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Hero(
-              tag: widget.product.id ?? '',
-              child: Image.asset(
-                widget.product.imageUrl,
-                fit: BoxFit.cover,
+      body: Container(
+        height: 1000,
+        color: Colors.teal[50],
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Hero(
+                tag: widget.product.id ?? '',
+                child: Image.asset(
+                  widget.product.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '\$${widget.product.price}',
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  FavoriteProductButton(
+                    onPressed: () {},
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        '\$${widget.product.price}',
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: _decreaseQuantity,
-                  child: Container(
-                    // padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.remove,
-                      size: 35,
-                      color: Color(0xff022840),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 70,
-                  child: TextField(
-                    style: const TextStyle(fontSize: 25),
-                    controller: quantityController,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        _quantity = int.tryParse(value) ?? 1;
-                      });
-                    },
-                  ),
-                ),
-                GestureDetector(
-                  onTap: _increaseQuantity,
-                  child: Container(
-                    // padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      size: 35,
-                      color: Color(0xff022840),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
-              child: Text(
-                widget.product.description,
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            CartButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Đã thêm sản phẩm vào giỏ hàng',
-                        textAlign: TextAlign.center,
+                  GestureDetector(
+                    onTap: _decreaseQuantity,
+                    child: Container(
+                      // padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.remove,
+                        size: 35,
+                        color: Color(0xff022840),
                       ),
                     ),
-                  );
-              },
-            ),
-          ],
+                  ),
+                  SizedBox(
+                    width: 70,
+                    child: TextField(
+                      style: const TextStyle(fontSize: 25),
+                      controller: quantityController,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          _quantity = int.tryParse(value) ?? 1;
+                        });
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: _increaseQuantity,
+                    child: Container(
+                      // padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        size: 35,
+                        color: Color(0xff022840),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                width: double.infinity,
+                child: Text(
+                  widget.product.description,
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CartButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Đã thêm sản phẩm vào giỏ hàng',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class CartProductButton extends StatelessWidget {
-  const CartProductButton({
-    super.key,
-    required this.onPressed,
-  });
+// class CartProductButton extends StatelessWidget {
+//   const CartProductButton({
+//     super.key,
+//     required this.onPressed,
+//   });
 
-  final void Function()? onPressed;
+//   final void Function()? onPressed;
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: const Icon(Icons.shopping_cart),
-      color: const Color(0xff022840),
-      iconSize: 35,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return IconButton(
+//       onPressed: onPressed,
+//       icon: const Icon(Icons.shopping_cart),
+//       color: const Color(0xff022840),
+//       iconSize: 35,
+//     );
+//   }
+// }
 
 class CartButton extends StatelessWidget {
   const CartButton({
@@ -234,7 +254,7 @@ class CartButton extends StatelessWidget {
               'Add to Cart',
               style: TextStyle(
                 fontSize: 25,
-                color: Color(0xff022840),
+                color: Colors.white,
               ),
             ),
           ),
@@ -266,7 +286,7 @@ class _FavoriteProductButtonState extends State<FavoriteProductButton> {
           iconSize: 35,
           icon: Icon(
             _isFavorited ? Icons.favorite : Icons.favorite_border,
-            color: _isFavorited ? Colors.red : const Color(0xff022840),
+            color: _isFavorited ? Colors.red : Colors.red,
           ),
           onPressed: () {
             setState(
@@ -276,7 +296,7 @@ class _FavoriteProductButtonState extends State<FavoriteProductButton> {
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
                       SnackBar(
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.teal,
                         content: Text(
                           _isFavorited
                               ? 'Đã thêm sản phẩm vào danh sách yêu thích'

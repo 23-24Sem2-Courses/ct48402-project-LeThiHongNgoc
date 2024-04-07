@@ -1,4 +1,6 @@
+import 'package:ct484_project/ui/cart/cart_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '/ui/products/product_detail_screen.dart';
 import '../../models/product.dart';
 
@@ -17,13 +19,6 @@ class HomeCardItem extends StatelessWidget {
           arguments: product.id,
         );
       },
-      // onTap: () {
-      //   Navigator.of(context).push(
-      //     MaterialPageRoute(
-      //       builder: (ctx) => ProductDetailScreen(arguments: product.id),
-      //     ),
-      //   );
-      // },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -77,6 +72,7 @@ class CardRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartManager = Provider.of<CartManager>(context, listen: false);
     return Container(
       child: Stack(
         children: [
@@ -109,9 +105,10 @@ class CardRight extends StatelessWidget {
             child: FavoriteButton(product: product),
           ),
           // Nút giỏ hàng
-          const Align(
+          Align(
             alignment: Alignment.bottomRight,
-            child: CartButtonBottomRight(),
+            // Nút giỏ hàng
+            child: CartButtonBottomRight(product, cartManager),
           ),
         ],
       ),
@@ -120,11 +117,16 @@ class CardRight extends StatelessWidget {
 }
 
 class CartButtonBottomRight extends StatelessWidget {
-  const CartButtonBottomRight({
+  final Product product;
+  final CartManager cartManager;
+  const CartButtonBottomRight(
+    this.product,
+    this.cartManager, {
     super.key,
-    this.onAddToCartPressed,
+    // this.onAddToCartPressed,
   });
-  final void Function()? onAddToCartPressed;
+  // final void Function()? onAddToCartPressed;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,8 +147,28 @@ class CartButtonBottomRight extends StatelessWidget {
           Icons.shopping_cart,
           size: 30,
           color: Colors.white,
-        ),
-        onPressed: onAddToCartPressed,
+        ), //onAddToCartPressed,
+        onPressed: () {
+          final cart = context.read<CartManager>();
+          cart.addItem(product);
+          // cart.addItem(product);
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'Item added to cart',
+                ),
+                duration: const Duration(seconds: 2),
+                action: SnackBarAction(
+                  label: 'UNDO',
+                  onPressed: () {
+                    cart.removeItem(product.id!);
+                  },
+                ),
+              ),
+            );
+        },
       ),
     );
   }
@@ -174,10 +196,10 @@ class FavoriteButton extends StatelessWidget {
               size: 35,
               color: Colors.red,
             ),
-            onPressed: onFavoritePressed,
-            // onPressed: () {
-            //   product.isFavorite = !product.isFavorite;
-            // },
+            // onPressed: onFavoritePressed,
+            onPressed: () {
+              product.isFavorite = !product.isFavorite;
+            },
           );
         });
   }

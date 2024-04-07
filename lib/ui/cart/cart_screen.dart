@@ -1,6 +1,8 @@
 import 'package:ct484_project/ui/home/home_screen.dart';
+import 'package:ct484_project/ui/order/order_manager.dart';
+import 'package:ct484_project/ui/order/orders_screen.dart';
 import 'package:ct484_project/ui/search/custom_search.dart';
-
+import 'package:provider/provider.dart';
 import '/ui/cart/cart_item_card.dart';
 import '/ui/cart/cart_manager.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +13,13 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = CartManager();
-
+    // final cart = CartManager();
+    // context.watch có chức năng tương tự như widget Consumer
+    final cart = context.watch<CartManager>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Shoes Store",
+          "Giỏ hàng",
           style: TextStyle(
             color: Theme.of(context).primaryColorDark,
             fontSize: 30,
@@ -32,32 +35,62 @@ class CartScreen extends StatelessWidget {
               );
             },
           ),
-          ShoppingCartButton(
+          OrderCartButton(
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const CartScreen()),
+                MaterialPageRoute(builder: (context) => const OrdersScreen()),
               );
             },
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            //cap nhat CartItemList
-            child: CartItemList(cart),
-          ),
-          const SizedBox(height: 10),
-          //cap nhat CartSummary
-          CartSummary(
-            cart: cart,
-            onOnderNowPressed: () {
-              print('An order has been added');
-            },
-          ),
-        ],
+      body: Container(
+        color: Colors.teal[50],
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              //cap nhat CartItemList
+              child: CartItemList(cart),
+            ),
+            const SizedBox(height: 10),
+            //cap nhat CartSummary
+            CartSummary(
+              cart: cart,
+              onOnderNowPressed: cart.totalAmount <= 0
+                  ? null
+                  : () {
+                      context.read<OrdersManager>().addOrder(
+                            cart.products,
+                            cart.totalAmount,
+                          );
+                      cart.clearAllItems();
+                      // print('An order has been added');
+                    },
+            ),
+          ],
+        ),
       ),
     );
+  }
+}
+
+class OrderCartButton extends StatelessWidget {
+  const OrderCartButton({super.key, this.onPressed});
+
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CartManager>(builder: (ctx, cartManager, child) {
+      return IconButton(
+        onPressed: onPressed,
+        icon: const Icon(
+          Icons.badge,
+        ),
+        iconSize: 35,
+        color: const Color(0xff022840),
+      );
+    });
   }
 }
 

@@ -22,7 +22,7 @@ class _AppDrawerState extends State<AppDrawer> {
         children: <Widget>[
           AppBar(
             title: Text(
-              "Shoes Store",
+              "Tài khoản",
               style: TextStyle(
                 color: Theme.of(context).primaryColorDark,
                 fontSize: 30,
@@ -89,7 +89,7 @@ class _AppDrawerState extends State<AppDrawer> {
               });
             },
           ),
-          const SizedBox(height: 382),
+          const SizedBox(height: 490),
           BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             iconSize: 30,

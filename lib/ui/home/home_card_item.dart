@@ -188,19 +188,17 @@ class FavoriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTileBar(
-      leading: ValueListenableBuilder<bool>(
-          valueListenable: product.isFavoriteListenable,
-          builder: (ctx, isFavorite, child) {
-            return IconButton(
-                icon: Icon(
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-                  size: 35,
-                  color: Colors.red,
-                ),
-                // onPressed: onFavoritePressed,
-                onPressed: onFavoritePressed);
-          }),
+    return ValueListenableBuilder<bool>(
+      valueListenable: product.isFavoriteListenable,
+      builder: (ctx, isFavorite, child) {
+        return IconButton(
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              size: 35,
+              color: Colors.red,
+            ),
+            onPressed: onFavoritePressed);
+      },
     );
   }
 }

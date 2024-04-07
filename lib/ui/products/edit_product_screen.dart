@@ -277,10 +277,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
       onFieldSubmitted: (value) => _saveForm(),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Please enter an image URL';
+          return 'Please enter an image ';
         }
         if (!_isValidImageUrl(value)) {
-          return 'Please enter a valid image URL.';
+          return 'Please enter a valid image.';
         }
 
         return null;

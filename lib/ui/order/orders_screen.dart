@@ -1,8 +1,4 @@
-import 'package:ct484_project/ui/home/home_screen.dart';
-import 'package:ct484_project/ui/screens.dart';
-import 'package:ct484_project/ui/search/custom_search.dart';
-import 'package:ct484_project/ui/shared/bottom_navigation_bar.dart';
-import 'package:ct484_project/ui/user/profile_screen.dart';
+import './../screens.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -139,7 +135,13 @@ class OrderDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chi tiết đơn hàng'),
+        title: Text(
+          'Chi tiết đơn hàng',
+          style: TextStyle(
+              color: Theme.of(context).primaryColorDark,
+              fontSize: 30,
+              fontWeight: FontWeight.bold),
+        ),
       ),
       body: Container(
         height: 1000,

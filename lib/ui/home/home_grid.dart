@@ -1,7 +1,6 @@
-import '/ui/home/home_card_item.dart';
+import './../screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../products/products_manager.dart';
 import '../../models/product.dart';
 
 class HomeGird extends StatelessWidget {

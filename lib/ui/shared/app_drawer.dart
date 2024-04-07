@@ -1,8 +1,4 @@
-import 'package:ct484_project/ui/search/custom_search.dart';
-// import 'package:ct484_project/ui/user/profile_screen.dart';
-import '/ui/home/home_screen.dart';
 import '/ui/screens.dart';
-// import '/ui/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../auth/auth_manager.dart';

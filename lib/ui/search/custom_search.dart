@@ -1,5 +1,5 @@
 import 'package:ct484_project/models/product.dart';
-import 'package:ct484_project/ui/products/product_detail_screen.dart';
+import './../screens.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearch extends SearchDelegate {
@@ -84,7 +84,6 @@ class CustomSearch extends SearchDelegate {
         .toList();
 
     return Container(
-      color: Colors.teal[50],
       child: ListView.builder(
         itemCount: matchedProducts.length,
         itemBuilder: (context, index) {

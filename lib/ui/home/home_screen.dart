@@ -1,12 +1,7 @@
 import 'package:provider/provider.dart';
-import '/ui/user/profile_screen.dart';
-import '/ui/home/home_grid.dart';
-import '/ui/home/top_right_badge.dart';
 import '/ui/screens.dart';
-import '/ui/shared/bottom_navigation_bar.dart';
-import '../search/custom_search.dart';
 import 'package:flutter/material.dart';
-import 'home_banner.dart';
+
 
 enum FilterOptions { favorites, all }
 
@@ -168,7 +163,29 @@ class ShoppingCartButton extends StatelessWidget {
         return TopRightBadge(
           data: CartManager().productCount,
           child: IconButton(
-            onPressed: onPressed,
+            onPressed: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const CartScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const curve =
+                        Curves.bounceIn; // Chỉ định hiệu ứng curve tại đây
+                    var begin = const Offset(1.0, 1.0);
+                    var end = Offset.zero;
+                    var curveTween = CurveTween(curve: curve);
+                    var offsetAnimation = animation
+                        .drive(curveTween)
+                        .drive(Tween(begin: begin, end: end));
+                    return SlideTransition(
+                      position: offsetAnimation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
             icon: const Icon(
               Icons.shopping_cart,
             ),
@@ -178,18 +195,6 @@ class ShoppingCartButton extends StatelessWidget {
         );
       },
     );
-    // return TopRightBadge(
-    //   data: CartManager().productCount,
-    //   child: IconButton(
-    //     onPressed: onPressed,
-    //     icon: const Icon(
-    //       Icons.shopping_cart,
-    //     ),
-    //     iconSize: 35,
-    //     color: const Color(0xff022840),
-    //   ),
-
-    // );
   }
 }
 

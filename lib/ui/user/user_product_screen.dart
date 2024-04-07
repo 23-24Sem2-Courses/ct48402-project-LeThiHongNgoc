@@ -104,7 +104,6 @@ class UserProductList extends StatelessWidget {
   // final Product product;
   @override
   Widget build(BuildContext context) {
-    // final productsManager = ProductsManager();
     final productsManager = context.watch<ProductsManager>();
     return Consumer<ProductsManager>(builder: (ctx, ProductsManager, child) {
       return ListView.builder(

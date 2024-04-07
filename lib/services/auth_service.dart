@@ -44,7 +44,7 @@ class AuthService {
 
       return authToken;
     } catch (error) {
-      print(error);
+      // print(error);
       rethrow;
     }
   }

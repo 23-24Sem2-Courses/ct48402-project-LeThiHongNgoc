@@ -1,8 +1,6 @@
-import 'package:ct484_project/ui/shared/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import '/ui/screens.dart';
 import 'package:flutter/material.dart';
-
 
 enum FilterOptions { favorites, all }
 
@@ -14,8 +12,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _showOnlyFavorites = false;
+  final _showOnlyFavorites = ValueNotifier<bool>(false);
+  late Future<void> _fetchProducts;
+
   int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _fetchProducts = context.read<ProductsManager>().fetchProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +98,31 @@ class _HomeScreenState extends State<HomeScreen> {
               "All Product",
               HomeFilterMenu(
                 onFilterSelected: (filter) {
-                  setState(() {
-                    _showOnlyFavorites = filter == FilterOptions.favorites;
-                  });
+                  if (filter == FilterOptions.favorites) {
+                    _showOnlyFavorites.value = true;
+                  } else {
+                    _showOnlyFavorites.value = false;
+                  }
                 },
               ),
             ),
             Expanded(
-              child: HomeGird(_showOnlyFavorites),
+              child: FutureBuilder(
+                future: _fetchProducts,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ValueListenableBuilder<bool>(
+                      valueListenable: _showOnlyFavorites,
+                      builder: (context, onlyFavorites, child) {
+                        return HomeGird(onlyFavorites);
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ),
           ],
         ),

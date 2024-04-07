@@ -83,6 +83,28 @@ class ProductsManager with ChangeNotifier {
     }
   }
 
+  Future<void> updateProduct(Product product) async {
+    final index = _items.indexWhere((item) => item.id == product.id);
+    if (index >= 0) {
+      if (await _productsService.updateProducts(product)) {
+        _items[index] = product;
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<void> deleteProduct(String id) async {
+    final index = _items.indexWhere((item) => item.id == id);
+    Product? existingProduct = _items[index];
+    _items.removeAt(index);
+    notifyListeners();
+
+    if (!await _productsService.deleteProducts(id)) {
+      _items.insert(index, existingProduct);
+      notifyListeners();
+    }
+  }
+
   int get itemCount {
     return _items.length;
   }
@@ -112,22 +134,22 @@ class ProductsManager with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void updateProduct(Product product) {
-    final index = _items.indexWhere((item) => item.id == product.id);
-    if (index >= 0) {
-      _items[index] = product;
-      notifyListeners();
-    }
-  }
+  // void updateProduct(Product product) {
+  //   final index = _items.indexWhere((item) => item.id == product.id);
+  //   if (index >= 0) {
+  //     _items[index] = product;
+  //     notifyListeners();
+  //   }
+  // }
 
   void toggleFavoriteStatus(Product product) {
     final savedStatus = product.isFavorite;
     product.isFavorite = !savedStatus;
   }
 
-  void deleteProduct(String id) {
-    final index = _items.indexWhere((item) => item.id == id);
-    _items.removeAt(index);
-    notifyListeners();
-  }
+  // void deleteProduct(String id) {
+  //   final index = _items.indexWhere((item) => item.id == id);
+  //   _items.removeAt(index);
+  //   notifyListeners();
+  // }
 }

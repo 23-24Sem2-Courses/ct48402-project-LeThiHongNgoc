@@ -42,7 +42,6 @@ class HomeCardItem extends StatelessWidget {
                 child: Image.asset(
                   product.imageUrl,
                   fit: BoxFit.fitHeight,
-                  
                 ),
               ),
               // CardRight
@@ -73,45 +72,43 @@ class CardRight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartManager = Provider.of<CartManager>(context, listen: false);
-    return Container(
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Thêm khoảng trống phía trên để tạo khoảng cách với ảnh
-              const SizedBox(height: 12),
-              Text(
-                product.title,
-                style: const TextStyle(
-                  color: Color(0xFF022840),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
+    return Stack(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Thêm khoảng trống phía trên để tạo khoảng cách với ảnh
+            const SizedBox(height: 12),
+            Text(
+              product.title,
+              style: const TextStyle(
+                color: Color(0xFF022840),
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
               ),
-              Text(
-                '\$${product.price}',
-                style: const TextStyle(
-                  color: Color(0xFF022840),
-                  fontSize: 20,
-                ),
+            ),
+            Text(
+              '\$${product.price}',
+              style: const TextStyle(
+                color: Color(0xFF022840),
+                fontSize: 20,
               ),
-            ],
-          ),
-          // Nút trái tim
-          Positioned(
-            top: 0,
-            right: 0,
-            child: FavoriteButton(product: product),
-          ),
+            ),
+          ],
+        ),
+        // Nút trái tim
+        Positioned(
+          top: 0,
+          right: 0,
+          child: FavoriteButton(product: product),
+        ),
+        // Nút giỏ hàng
+        Align(
+          alignment: Alignment.bottomRight,
           // Nút giỏ hàng
-          Align(
-            alignment: Alignment.bottomRight,
-            // Nút giỏ hàng
-            child: CartButtonBottomRight(product, cartManager),
-          ),
-        ],
-      ),
+          child: CartButtonBottomRight(product, cartManager),
+        ),
+      ],
     );
   }
 }

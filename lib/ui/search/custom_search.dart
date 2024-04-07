@@ -83,39 +83,37 @@ class CustomSearch extends SearchDelegate {
             product.title.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
-    return Container(
-      child: ListView.builder(
-        itemCount: matchedProducts.length,
-        itemBuilder: (context, index) {
-          var result = matchedProducts[index];
-          return ListTile(
-            title: Text(
-              result.title,
-              style: const TextStyle(fontSize: 20),
-            ),
-            // Display the product image
-            leading: Image.asset(
-              result.imageUrl,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-            // Display the product price
-            subtitle: Text(
-              '\$${result.price.toStringAsFixed(2)}',
-              style: const TextStyle(fontSize: 20),
-            ),
-            onTap: () {
-              // Handle when the user taps on a product
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ProductDetailScreen(result),
-                ),
-              );
-            },
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: matchedProducts.length,
+      itemBuilder: (context, index) {
+        var result = matchedProducts[index];
+        return ListTile(
+          title: Text(
+            result.title,
+            style: const TextStyle(fontSize: 20),
+          ),
+          // Display the product image
+          leading: Image.asset(
+            result.imageUrl,
+            width: 50,
+            height: 50,
+            fit: BoxFit.cover,
+          ),
+          // Display the product price
+          subtitle: Text(
+            '\$${result.price.toStringAsFixed(2)}',
+            style: const TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            // Handle when the user taps on a product
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProductDetailScreen(result),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

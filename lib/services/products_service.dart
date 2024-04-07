@@ -1,6 +1,5 @@
 import 'dart:convert';
 import '../models/product.dart';
-import '../models/auth_token.dart';
 import 'firebase_service.dart';
 
 class ProductsService extends FirebaseService {
@@ -34,7 +33,7 @@ class ProductsService extends FirebaseService {
       });
       return products;
     } catch (error) {
-      print(error);
+      // print(error);
       return products;
     }
   }
@@ -56,8 +55,36 @@ class ProductsService extends FirebaseService {
         id: newProduct!['name'],
       );
     } catch (error) {
-      print(error);
+      // print(error);
       return null;
+    }
+  }
+
+  Future<bool> updateProducts(Product product) async {
+    try {
+      await httpFetch(
+        '$databaseUrl/products/${product.id}.json?auth=$token',
+        method: HttpMethod.patch,
+        body: jsonEncode(product.toJson()),
+      );
+
+      return true;
+    } catch (error) {
+      // print(error);
+      return false;
+    }
+  }
+
+  Future<bool> deleteProducts(String id) async {
+    try {
+      await httpFetch(
+        '$databaseUrl/products/$id.json?auth=$token',
+        method: HttpMethod.delete,
+      );
+      return true;
+    } catch (error) {
+      // print(error);
+      return false;
     }
   }
 }

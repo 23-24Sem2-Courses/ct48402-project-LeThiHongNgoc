@@ -1,24 +1,43 @@
+import '/services/order_service.dart';
+import '/models/auth_token.dart';
 import 'package:flutter/material.dart';
 import '../../models/cart_item.dart';
 import '../../models/order_item.dart';
 
+
 class OrdersManager with ChangeNotifier {
-  final List<OrderItem> _orders = [
-    OrderItem(
-      id: 'o1',
-      amount: 59.98,
-      products: [
-        CartItem(
-          id: 'c1',
-          title: 'Red Shirt',
-          imageUrl: 'assets/images/products/product_1.png',
-          price: 29.99,
-          quantity: 2,
-        )
-      ],
+  List<OrderItem> _orders = [];
+
+  final OrderService _orderService;
+
+  OrdersManager([AuthToken? authToken])
+    : _orderService = OrderService(authToken);
+
+  set authToken(AuthToken? authToken) {
+    _orderService.authToken = authToken;
+  }
+
+  Future<void> fetchOrders() async {
+    _orders = await _orderService.fetchOrders(
+      filteredByUser: true,
+    );
+    notifyListeners();
+  }
+
+  Future<void> addOrderItem(List<CartItem> cartProducts, double total) async {
+    final orderItem = OrderItem(
+      id: 'o${DateTime.now().toIso8601String()}',
+      amount: total,
+      products: cartProducts,
       dateTime: DateTime.now(),
-    )
-  ];
+    );
+
+    final newOrderItem = await _orderService.addOrderItem(orderItem);
+    if (newOrderItem != null) {
+      _orders.add(newOrderItem);
+      notifyListeners();
+    }
+  }
 
   int get orderCount {
     return _orders.length;
@@ -26,18 +45,5 @@ class OrdersManager with ChangeNotifier {
 
   List<OrderItem> get orders {
     return [..._orders];
-  }
-
-  void addOrder(List<CartItem> cartProducts, double total) async {
-    _orders.insert(
-      0,
-      OrderItem(
-        id: 'o${DateTime.now().toIso8601String()}',
-        amount: total,
-        products: cartProducts,
-        dateTime: DateTime.now(),
-      ),
-    );
-    notifyListeners();
   }
 }

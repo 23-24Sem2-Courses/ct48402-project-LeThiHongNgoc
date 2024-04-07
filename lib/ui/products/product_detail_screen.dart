@@ -204,18 +204,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     );
                 }
               }
-
-                  // ScaffoldMessenger.of(context)
-                  //   ..hideCurrentSnackBar()
-                  //   ..showSnackBar(
-                  //     const SnackBar(
-                  //       content: Text(
-                  //         'Đã thêm sản phẩm vào giỏ hàng',
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ),
-                  //   );
-                  // },
                   ),
             ],
           ),
@@ -225,24 +213,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 }
 
-// class CartProductButton extends StatelessWidget {
-//   const CartProductButton({
-//     super.key,
-//     required this.onPressed,
-//   });
-
-//   final void Function()? onPressed;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return IconButton(
-//       onPressed: onPressed,
-//       icon: const Icon(Icons.shopping_cart),
-//       color: const Color(0xff022840),
-//       iconSize: 35,
-//     );
-//   }
-// }
 
 class CartButton extends StatelessWidget {
   const CartButton({

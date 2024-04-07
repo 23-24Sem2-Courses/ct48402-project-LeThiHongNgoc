@@ -12,6 +12,7 @@ class CartScreen extends StatelessWidget {
     // final cart = CartManager();
     // context.watch có chức năng tương tự như widget Consumer
     final cart = context.watch<CartManager>();
+    late Future<void> fetchCart = context.read<CartManager>().fetchCartItems();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -55,7 +56,7 @@ class CartScreen extends StatelessWidget {
               onOnderNowPressed: cart.totalAmount <= 0
                   ? null
                   : () {
-                      context.read<OrdersManager>().addOrder(
+                      context.read<OrdersManager>().addOrderItem(
                             cart.products,
                             cart.totalAmount,
                           );

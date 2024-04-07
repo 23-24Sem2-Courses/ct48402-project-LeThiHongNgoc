@@ -28,4 +28,22 @@ class CartItem {
       price: price ?? this.price,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'imageUrl': imageUrl,
+      'quantity': quantity,
+      'price': price,
+    };
+  }
+
+  static CartItem fromJson(Map<String, dynamic> json) {
+    return CartItem(
+        id: json['id'],
+        title: json['title'],
+        imageUrl: json['imageUrl'],
+        quantity: json['quantity'],
+        price: json['price']);
+  }
 }

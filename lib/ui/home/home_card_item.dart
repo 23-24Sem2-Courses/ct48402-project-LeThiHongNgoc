@@ -100,7 +100,12 @@ class CardRight extends StatelessWidget {
         Positioned(
           top: 0,
           right: 0,
-          child: FavoriteButton(product: product),
+          child: FavoriteButton(
+            product: product,
+            onFavoritePressed: () {
+              context.read<ProductsManager>().toggleFavoriteStatus(product);
+            },
+          ),
         ),
         // Nút giỏ hàng
         Align(
@@ -160,7 +165,7 @@ class CartButtonBottomRight extends StatelessWidget {
                 action: SnackBarAction(
                   label: 'Hủy',
                   onPressed: () {
-                    cart.removeItem(product.id!);
+                    cart.clearItem(product.id!);
                   },
                 ),
               ),

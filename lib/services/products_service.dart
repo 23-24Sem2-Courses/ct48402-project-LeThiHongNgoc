@@ -87,4 +87,19 @@ class ProductsService extends FirebaseService {
       return false;
     }
   }
+
+  Future<bool> saveFavoriteStatus(Product product) async {
+    try {
+      await httpFetch(
+        '$databaseUrl/useFavorites/$userId/${product.id}.json?auth=$token',
+        method: HttpMethod.put,
+        body: jsonEncode(product.isFavorite),
+      );
+
+      return true;
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
 }

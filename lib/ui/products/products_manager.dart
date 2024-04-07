@@ -4,56 +4,8 @@ import 'package:flutter/material.dart';
 import '../../models/product.dart';
 
 class ProductsManager with ChangeNotifier {
-  // final List<Product> _items = [
-  // Product(
-  //   id: 'p1',
-  //   title: 'Shoes 1',
-  //   description: 'A red shirt - it is pretty red!',
-  //   price: 29.99,
-  //   imageUrl: 'assets/images/products/product_1.png',
-  //   isFavorite: true,
-  // ),
-  // Product(
-  //   id: 'p2',
-  //   title: 'Shoes 2',
-  //   description: 'A nice pair of trousers.',
-  //   price: 59.99,
-  //   imageUrl: 'assets/images/products/product_2.png',
-  // ),
-  // Product(
-  //   id: 'p3',
-  //   title: 'Shoes 3',
-  //   description: 'Warm and cozy - exactly what you need for the winter.',
-  //   price: 19.99,
-  //   imageUrl: 'assets/images/products/product_3.png',
-  // ),
-  // Product(
-  //   id: 'p4',
-  //   title: 'Shoes 4',
-  //   description: 'Prepare any meal you want.',
-  //   price: 49.99,
-  //   imageUrl: 'assets/images/products/product_4.png',
-  //   isFavorite: true,
-  // ),
-  // Product(
-  //   id: 'p5',
-  //   title: 'Shoes 5',
-  //   description: 'Prepare any meal you want.',
-  //   price: 49.99,
-  //   imageUrl: 'assets/images/products/product_5.png',
-  //   isFavorite: true,
-  // ),
-  // Product(
-  //   id: 'p6',
-  //   title: 'Shoes 6',
-  //   description: 'Prepare any meal you want.',
-  //   price: 49.99,
-  //   imageUrl: 'assets/images/products/product_6.png',
-  //   isFavorite: true,
-  // ),
-  // ];
-
   List<Product> _items = [];
+
   final ProductsService _productsService;
 
   ProductsManager([AuthToken? authToken])
@@ -105,6 +57,15 @@ class ProductsManager with ChangeNotifier {
     }
   }
 
+  Future<void> toggleFavoriteStatus(Product product) async {
+    final savedStatus = product.isFavorite;
+    product.isFavorite = !savedStatus;
+
+    if (!await _productsService.saveFavoriteStatus(product)) {
+      product.isFavorite = savedStatus;
+    }
+  }
+
   int get itemCount {
     return _items.length;
   }
@@ -122,15 +83,6 @@ class ProductsManager with ChangeNotifier {
       return _items.firstWhere((item) => item.id == id);
     } catch (error) {
       return null;
-    }
-  }
-
-  Future<void> toggleFavoriteStatus(Product product) async {
-    final savedStatus = product.isFavorite;
-    product.isFavorite = !savedStatus;
-
-    if (!await _productsService.saveFavoriteStatus(product)) {
-      product.isFavorite = savedStatus;
     }
   }
 }

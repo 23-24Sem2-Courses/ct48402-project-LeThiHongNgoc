@@ -8,11 +8,9 @@ class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen(
     this.product, {
     super.key,
-    this.onFavoritePressed,
   });
 
   final Product product;
-  final void Function()? onFavoritePressed;
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -203,8 +201,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     );
                 }
-              }
-                  ),
+              }),
             ],
           ),
         ),
@@ -212,7 +209,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
-
 
 class CartButton extends StatelessWidget {
   const CartButton({
@@ -278,7 +274,7 @@ class _FavoriteProductButtonState extends State<FavoriteProductButton> {
           iconSize: 35,
           icon: Icon(
             _isFavorited ? Icons.favorite : Icons.favorite_border,
-            color: _isFavorited ? Colors.red : Colors.red,
+            color: Colors.red,
           ),
           onPressed: () {
             setState(
@@ -287,12 +283,10 @@ class _FavoriteProductButtonState extends State<FavoriteProductButton> {
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.teal,
+                      const SnackBar(
+                        backgroundColor: Colors.green,
                         content: Text(
-                          _isFavorited
-                              ? 'Đã thêm sản phẩm vào danh sách yêu thích'
-                              : 'Đã xóa sản phẩm khỏi danh sách yêu thích',
+                          'Đã thêm sản phẩm vào danh sách yêu thích',
                           textAlign: TextAlign.center,
                         ),
                       ),

@@ -95,7 +95,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                 elevation: 5,
                 child: ListTile(
                   title: Text(
-                    'Đơn hàng #${order.id}',
+                    'Đơn hàng: ${order.id}',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   subtitle: Text(

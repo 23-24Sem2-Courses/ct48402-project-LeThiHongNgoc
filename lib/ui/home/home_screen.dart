@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/shared/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 import '/ui/screens.dart';
 import 'package:flutter/material.dart';

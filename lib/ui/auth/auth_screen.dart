@@ -19,12 +19,21 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
+<<<<<<< HEAD
                   const Color.fromARGB(192, 252, 114, 192).withOpacity(0.5),
                   const Color.fromARGB(255, 116, 2, 168).withOpacity(0.9),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 stops: const [0, 8],
+=======
+                  const Color.fromRGBO(215, 117, 255, 1).withOpacity(0.5),
+                  const Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: const [0, 1],
+>>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
               ),
             ),
           ),
@@ -36,6 +45,7 @@ class AuthScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+<<<<<<< HEAD
                   const Padding(
                     padding: EdgeInsets.only(left: 20, top: 10, bottom: 5),
                     child: Text(
@@ -46,6 +56,8 @@ class AuthScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+=======
+>>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
                   const Flexible(
                     child: AppBanner(),
                   ),
@@ -53,12 +65,15 @@ class AuthScreen extends StatelessWidget {
                     flex: deviceSize.width > 600 ? 2 : 1,
                     child: const AuthCard(),
                   ),
+<<<<<<< HEAD
                   FacebookSignInButton(
                     onPressed: () {},
                   ),
                   GoogleSignInButton(
                     onPressed: () {},
                   ),
+=======
+>>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50
                 ],
               ),
             ),
@@ -68,6 +83,7 @@ class AuthScreen extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
 class FacebookSignInButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -173,3 +189,5 @@ class GoogleSignInButton extends StatelessWidget {
     );
   }
 }
+=======
+>>>>>>> b4afc48625cad5c874de557f0ac20f24ecc05c50

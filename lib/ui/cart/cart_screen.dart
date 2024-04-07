@@ -1,3 +1,4 @@
+import 'package:ct484_project/ui/cart/cart_item_card.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import './../screens.dart';

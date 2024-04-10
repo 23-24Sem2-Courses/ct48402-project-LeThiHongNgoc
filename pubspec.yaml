@@ -31,7 +31,6 @@ flutter:
     - assets/images/products/product_1.png
     - assets/images/products/
     - assets/images/banners/
-    - assets/images/logos/
     - assets/images/backgrounds/
     - .env
   fonts:
